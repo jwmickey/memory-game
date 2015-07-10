@@ -3,7 +3,6 @@ import classNames from 'classnames';
 
 const NUM_PAIRS = 12;
 
-// quick and dirty fisher-yates shuffle method
 function shuffle(a,b,c,d) {
     c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
 }
@@ -18,7 +17,8 @@ export default class App extends Component {
                 cards.push({
                     name: j,
                     flipped: false,
-                    matched: false
+                    matched: false,
+                    numFlips: 0
                 });
             }
         }
@@ -27,7 +27,8 @@ export default class App extends Component {
         this.state = {
             cards: cards,
             guess: -1,
-            numPaired: 0
+            numPaired: 0,
+            locked: false
         };
     }
 
@@ -36,13 +37,15 @@ export default class App extends Component {
         for (var i = 0; i < cards.length; i++) {
             cards[i].flipped = false;
             cards[i].matched = false;
+            cards[i].numFlips = 0;
         }
         shuffle(cards);
 
         this.setState({
             cards: cards,
             guess: -1,
-            numPaired: 0
+            numPaired: 0,
+            locked: false
         });
     }
 
@@ -53,6 +56,7 @@ export default class App extends Component {
         }
 
         cards[index].flipped = true;
+        cards[index].numFlips++;
 
         if (this.state.guess >= 0) {
             if (cards[this.state.guess].name == cards[index].name) {
@@ -67,7 +71,8 @@ export default class App extends Component {
             } else {
                 // not a match
                 this.setState({
-                    cards: cards
+                    cards: cards,
+                    locked: true
                 });
 
                 let that = this;
@@ -76,7 +81,8 @@ export default class App extends Component {
                     cards[index].flipped = false;
                     that.setState({
                         cards: cards,
-                        guess: -1
+                        guess: -1,
+                        locked: false
                     });
                 }, 1000);
             }
@@ -90,24 +96,50 @@ export default class App extends Component {
 
     render() {
         if (this.state.numPaired == NUM_PAIRS) {
-            return (
-                <div className="win">
-                    <h1>Winner!</h1>
-                    <button onClick={this.reset.bind(this)}>Play Again!</button>
-                </div>
-            );
+            return <Results cards={this.state.cards} resetHandler={this.reset.bind(this)} />
         } else {
-            let clickHandler = this.flipCard.bind(this);
+            let clickHandler = this.state.locked ? function() {} : this.flipCard.bind(this);
             return (
                 <div className="board">
                     {this.state.cards.map(function(card, i) {
                         return (
-                            <Card key={card.name + '-' + i} id={i} {...card} clickHandler={clickHandler} />
+                            <Card key={card.name + '-' + i} id={i} {...card}
+                                clickHandler={clickHandler} />
                         );
                     })}
                 </div>
             );
         }
+    }
+}
+
+class Results extends Component {
+    calcScore() {
+        let score = 0;
+
+        this.props.cards.forEach(function(card) {
+            if (card.numFlips == 1) {
+                score += 10;
+            } else if (card.numFlips == 2) {
+                score += 5;
+            } else if (card.numFlips == 3) {
+                score += 3;
+            } else {
+                score -= 5;
+            }
+        });
+
+        return score;
+    }
+
+    render() {
+        return (
+            <div className="results">
+                <h1>Winner!</h1>
+                <h2>Your Score: {this.calcScore()}</h2>
+                <button onClick={this.props.resetHandler}>Play Again!</button>
+            </div>
+        )
     }
 }
 
