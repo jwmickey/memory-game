@@ -19,7 +19,6 @@ react-hot-loader and webpack!
 TODO:
 
 * Animate card flips
-* Fill device screen and scale squares to fit evenly
 * Provide some image sets to use for cards rather than simple numbers
 
 Thanks to Dan Abramov for the [react-hot-loader](https://github.com/gaearon/react-hot-loader)
