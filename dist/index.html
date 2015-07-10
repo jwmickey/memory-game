@@ -2,32 +2,79 @@
   <head>
     <title>Memory Game</title>
     <style type="text/css">
-        html, body { margin: 0; }
-        #root { display: flex; }
+        html, body {
+            margin: 0;
+            font-family: Helvetica, Geneva, Garamond, sans-serif;
+        }
         .board {
-            margin: 20px;
-            display: flex;
-            flex: 1;
-            flex-flow: row wrap;
-            justify-content: center;
-            align-items: center;
+            width: 768px;
+            margin: 0 auto;
         }
         .card {
-            display: flex;
             background: tomato;
             color: white;
             width: 120px;
             height: 120px;
-            margin: 10px;
-            justify-content: center;
-            flex-direction: column;
+            margin: 4px;
+            font-size: 60px;
+            line-height: 120px;
             text-align: center;
-            resize: vertical;
-            font-size: 50px;
+            float: left;
         }
         .card.flipped { background: #999; }
         .card.matched { background: green !important; }
-        .win { font-size: 40px; text-align: center; }
+        .results {
+            margin: 20px auto;
+            padding: 10px;
+            width: 220px;
+            border: 5px dashed green;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .results button {
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: green;
+            color: white;
+        }
+
+        @media (min-width: 320px) {
+            .board {
+                width: 320px;
+            }
+            .card {
+                width: 50px;
+                height: 50px;
+                margin: 1px;
+                font-size: 25px;
+                line-height: 50px;
+            }
+        }
+        @media (min-width: 568px) and (max-width: 768px) {
+            .board {
+                width: 568px;
+            }
+            .card {
+                width: 80px;
+                height: 80px;
+                margin: 6px;
+                font-size: 40px;
+                line-height: 80px;
+            }
+        }
+        @media (min-width: 768px) {
+            .board {
+                width: 768px;
+            }
+            .card {
+                width: 120px;
+                height: 120px;
+                margin: 4px;
+                font-size: 60px;
+                line-height: 120px;
+            }
+        }
     </style>
   </head>
   <body>
