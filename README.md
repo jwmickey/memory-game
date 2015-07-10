@@ -1,46 +1,26 @@
-react-hot-boilerplate
-=====================
+Memory Game!
+============
 
-The minimal dev environment to enable live-editing React components.
+This is the classic card-flip memory game.  Flip two cards at a time to try to
+match the same cards.  If the two cards do not match, they will flip back over
+and you'll have to try again.  Once you match all cards the game is over and
+you will receive a score.  
 
-### Usage
+Points are awarded based on how many times each card is flipped:
 
-```
-npm install
-npm start
-open http://localhost:3000
-```
+* One Flip: 10 Points
+* Two Flips: 5 Points
+* Three Flips: 3 Points
+* Four or More Flips: -5 Points
 
-Now edit `src/App.js`.  
-Your changes will appear without reloading the browser like in [this video](http://vimeo.com/100010922).
+This game is nothing special - I just needed an excuse to play with
+react-hot-loader and webpack!
 
-### Linting
+TODO:
 
-This boilerplate project includes React-friendly ESLint configuration.
+* Animate card flips
+* Fill device screen and scale squares to fit evenly
+* Provide some image sets to use for cards rather than simple numbers
 
-```
-npm run lint
-```
-
-### Using `0.0.0.0` as Host
-
-You may want to change the host in `server.js` and `webpack.config.js` from `localhost` to `0.0.0.0` to allow access from same WiFi network. This is not enabled by default because it is reported to cause problems on Windows. This may also be useful if you're using a VM.
-
-### Missing Features
-
-This boilerplate is purposefully simple to show the minimal configuration for React Hot Loader. For a real project, you'll want to add a separate config for production with hot reloading disabled and minification enabled. You'll also want to add a router, styles and maybe combine dev server with an existing server. This is out of scope of this boilerplate, but you may want to look into [other starter kits](https://github.com/gaearon/react-hot-loader/blob/master/docs/README.md#starter-kits).
-
-### Dependencies
-
-* React
-* Webpack
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
-* [babel-loader](https://github.com/babel/babel-loader)
-* [react-hot-loader](https://github.com/gaearon/react-hot-loader)
-
-### Resources
-
-* [Demo video](http://vimeo.com/100010922)
-* [react-hot-loader on Github](https://github.com/gaearon/react-hot-loader)
-* [Integrating JSX live reload into your workflow](http://gaearon.github.io/react-hot-loader/getstarted/)
-* Ping dan_abramov on Twitter or #reactjs IRC
+Thanks to Dan Abramov for the [react-hot-loader](https://github.com/gaearon/react-hot-loader)
+quick-start and his work on the project.
