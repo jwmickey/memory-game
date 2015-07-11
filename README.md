@@ -17,9 +17,14 @@ This game is nothing special - I just needed an excuse to play with
 react-hot-loader and webpack!
 
 TODO:
+-----
 
-* Animate card flips
 * Provide some image sets to use for cards rather than simple numbers
+
+Acknowledgements:
+-----------------
 
 Thanks to Dan Abramov for the [react-hot-loader](https://github.com/gaearon/react-hot-loader)
 quick-start and his work on the project.
+
+Also thanks to Chris Harrington for the [CSS animation code](https://www.codementor.io/reactjs/tutorial/building-a-flipper-using-react-js-and-less-css).

@@ -10,7 +10,7 @@ function shuffle(a,b,c,d) {
 export default class App extends Component {
     constructor(props) {
         super(props);
-        
+
         let cards = [];
 
         for (var i = 0; i < 2; i++) {
@@ -155,17 +155,25 @@ class Card extends Component {
         let classes = classNames({
             card: true,
             matched: this.props.matched,
+            horizontal: true
+        });
+
+        let innerClasses = classNames({
+            'card-inner': true,
             flipped: this.props.flipped
         });
 
         let face = this.props.name;
         if (this.props.image) {
-            face = <img src={this.props.image} width={150} height={150} />;
+            face = <img src={this.props.image} />;
         }
 
         return (
             <div className={classes} onClick={this.flip.bind(this)}>
-                {this.props.flipped ? face : '?'}
+                <div className={innerClasses}>
+                    <div className="front">?</div>
+                    <div className="back">{face}</div>
+                </div>
             </div>
         );
     }

@@ -7,7 +7,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/dist/'
   },
   resolve: {
     extensions: [ '', '.js' ]
@@ -30,7 +30,10 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }, {
+    },{
+      test: /\.less$/,
+      loader: 'style!css!less'
+    },{
       test: /\.html?$/,
       loaders: ['file?name=[name].[ext]'],
       include: __dirname
