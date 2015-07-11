@@ -16,6 +16,9 @@ Points are awarded based on how many times each card is flipped:
 This game is nothing special - I just needed an excuse to play with
 react-hot-loader and webpack!
 
+[PLAY!](https://jwmickey.github.com/memory-game)
+-------
+
 TODO:
 -----
 

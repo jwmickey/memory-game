@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-const NUM_PAIRS = 2;
+const NUM_PAIRS = 12;
 
 function shuffle(a,b,c,d) {
     c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
