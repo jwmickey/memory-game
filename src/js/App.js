@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-const NUM_PAIRS = 12;
+const NUM_PAIRS = 2;
 
 function shuffle(a,b,c,d) {
     c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
@@ -97,21 +97,26 @@ export default class App extends Component {
     }
 
     render() {
+        let results = null;
+        let clickHandler = function() {};
+
         if (this.state.numPaired == NUM_PAIRS) {
-            return <Results cards={this.state.cards} resetHandler={this.reset.bind(this)} />
-        } else {
-            let clickHandler = this.state.locked ? function() {} : this.flipCard.bind(this);
-            return (
-                <div className="board">
-                    {this.state.cards.map(function(card, i) {
-                        return (
-                            <Card key={card.name + '-' + i} id={i} {...card}
-                                clickHandler={clickHandler} />
-                        );
-                    })}
-                </div>
-            );
+            results = <Results cards={this.state.cards} resetHandler={this.reset.bind(this)} />
+        } else if (!this.state.locked) {
+            clickHandler = this.flipCard.bind(this);
         }
+
+        return (
+            <div className="board">
+                {this.state.cards.map(function(card, i) {
+                    return (
+                        <Card key={card.name + '-' + i} id={i} {...card}
+                            clickHandler={clickHandler} />
+                    );
+                })}
+                {results}
+            </div>
+        );
     }
 }
 
@@ -137,7 +142,7 @@ class Results extends Component {
     render() {
         return (
             <div className="results">
-                <h1>Winner!</h1>
+                <h1>SUCCESS!</h1>
                 <h2>Your Score: {this.calcScore()}</h2>
                 <button onClick={this.props.resetHandler}>Play Again!</button>
             </div>
@@ -182,7 +187,7 @@ class Card extends Component {
 Card.defaultProps = {
     id: 0,
     image: null,
-    name: '(unknown)',
+    name: '???',
     flipped: false,
     matched: false
 }
