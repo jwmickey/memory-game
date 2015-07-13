@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import sets from './sets';
 
 const NUM_PAIRS = 12;
 
@@ -11,12 +12,46 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            cards: [],
+            guess: -1,
+            numPaired: 0,
+            locked: false,
+            started: false
+        };
+    }
+
+    pickSet() {
+        this.setState({
+            cards: [],
+            guess: -1,
+            numPaired: 0,
+            locked: false,
+            started: false
+        });
+    }
+
+    loadSet(index) {
+        console.log('load set: ', index);
+
+        if (index < 0 || index > sets.length - 1) {
+            index = 0;
+        }
+
         let cards = [];
+        let set = sets[index];
+        let useImage = false;
+
+        if (set.images != null && set.images.length >= NUM_PAIRS) {
+            shuffle(set.images);
+            useImage = true;
+        }
 
         for (var i = 0; i < 2; i++) {
-            for (var j = 1; j <= NUM_PAIRS; j++) {
+            for (var j = 0; j < NUM_PAIRS; j++) {
                 cards.push({
-                    name: j,
+                    name: j + 1,
+                    image: useImage ? set.images[j] : null,
                     flipped: false,
                     matched: false,
                     numFlips: 0
@@ -26,12 +61,13 @@ export default class App extends Component {
 
         shuffle(cards);
 
-        this.state = {
+        this.setState({
             cards: cards,
             guess: -1,
             numPaired: 0,
-            locked: false
-        };
+            locked: false,
+            started: true
+        });
     }
 
     reset() {
@@ -47,7 +83,8 @@ export default class App extends Component {
             cards: cards,
             guess: -1,
             numPaired: 0,
-            locked: false
+            locked: false,
+            started: true
         });
     }
 
@@ -97,24 +134,68 @@ export default class App extends Component {
     }
 
     render() {
-        let results = null;
-        let clickHandler = function() {};
+        if (this.state.started) {
+            let results = null;
+            let clickHandler = function() {};
 
-        if (this.state.numPaired == NUM_PAIRS) {
-            results = <Results cards={this.state.cards} resetHandler={this.reset.bind(this)} />
-        } else if (!this.state.locked) {
-            clickHandler = this.flipCard.bind(this);
+            if (this.state.numPaired == NUM_PAIRS) {
+                results = <Results cards={this.state.cards}
+                    resetHandler={this.reset.bind(this)}
+                    pickSetHandler={this.pickSet.bind(this)} />
+            } else if (!this.state.locked) {
+                clickHandler = this.flipCard.bind(this);
+            }
+
+            return (
+                <div className="board">
+                    {this.state.cards.map(function(card, i) {
+                        return (
+                            <Card key={card.name + '-' + i} id={i} {...card}
+                                clickHandler={clickHandler} />
+                        );
+                    })}
+                    {results}
+                </div>
+            );
+        } else {
+            return (
+                <Start sets={sets} startHandler={this.loadSet.bind(this)} />
+            )
         }
+    }
+}
 
+class Start extends Component {
+    render() {
+        var that = this;
         return (
-            <div className="board">
-                {this.state.cards.map(function(card, i) {
-                    return (
-                        <Card key={card.name + '-' + i} id={i} {...card}
-                            clickHandler={clickHandler} />
-                    );
-                })}
-                {results}
+            <div className="start">
+                <h1>Memory Game!</h1>
+                <div className="sets">
+                    {this.props.sets.map(function(set, i) {
+                        let styles = {};
+                        if (set.cover != null) {
+                            styles.backgroundImage = 'url('+set.cover+')';
+                        };
+
+                        return (
+                            <div key={set.name} onClick={that.props.startHandler.bind(null, i)} style={styles}>
+                                <h2>{set.name}</h2>
+                                <p>
+                                    {set.description}
+                                </p>
+                                {set.credit != null ? <p>Courtesy {set.credit}</p> : null}
+                            </div>
+                        );
+                    })}
+                </div>
+                <p>
+                    Images provided by the North Carolina Zoo.  You can find the originals
+                    at <a href="http://nczoo.smugmug.com" target="_blank">smugmug</a>.
+                </p>
+                <p>
+                    View project on <a href="https://github.com/jwmickey/memory-game">GitHub</a>.
+                </p>
             </div>
         );
     }
@@ -144,7 +225,12 @@ class Results extends Component {
             <div className="results">
                 <h1>SUCCESS!</h1>
                 <h2>Your Score: {this.calcScore()}</h2>
-                <button onClick={this.props.resetHandler}>Play Again!</button>
+                <p>
+                    <button onClick={this.props.resetHandler}>Play Again!</button>
+                </p>
+                <p>
+                    <button onClick={this.props.pickSetHandler}>Choose Another Set</button>
+                </p>
             </div>
         )
     }
@@ -168,16 +254,18 @@ class Card extends Component {
             flipped: this.props.flipped
         });
 
-        let face = this.props.name;
-        if (this.props.image) {
-            face = <img src={this.props.image} />;
+        let styles = {};
+        if (this.props.image != null) {
+            styles.backgroundImage = 'url('+this.props.image+')';
         }
 
         return (
             <div className={classes} onClick={this.flip.bind(this)}>
                 <div className={innerClasses}>
                     <div className="front">?</div>
-                    <div className="back">{face}</div>
+                    <div className="back" style={styles}>
+                        {this.props.image ? null : this.props.name}
+                    </div>
                 </div>
             </div>
         );

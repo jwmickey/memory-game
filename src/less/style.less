@@ -1,7 +1,53 @@
 html, body {
     margin: 0;
-    font-family: Helvetica, Geneva, Garamond, sans-serif;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+
+.start {
+    text-align: center;
+
+    p {
+        font-size: 0.7em;
+        padding: 1vw;
+        color: #555;
+    }
+}
+
+.sets {
+    display: flex;
+    flex: 1;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 1vh 1vw;
+
+    > div {
+        flex: 1 1 auto;
+        max-width: 24vw;
+        height: 24vw;
+        margin: 0.5vh 0.5vw;
+        border-radius: 2vh;
+        box-shadow: 0 0 1vw rgba(0,0,0,0.25);
+        color: #000;
+        position: relative;
+        background: linear-gradient(to bottom, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%) 50% 50% no-repeat;
+        background-size: cover;
+
+        h2 {
+            position: absolute;
+            bottom: 0;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255,255,255,0.5);
+            border-bottom-left-radius: 2vh;
+            border-bottom-right-radius: 2vh;
+        }
+        p {
+            display: none;
+        }
+    }
+}
+
 .board {
     display: flex;
     flex: 1;
@@ -31,6 +77,16 @@ html, body {
         font-size: 7.5vh;
         margin-top: 1vh;
     }
+
+    .sets {
+        flex-flow: column wrap;
+        align-items: center;
+
+        > div {
+            flex: 1;
+            min-width: 48vw;
+        }
+    }
 }
 
 .results {
@@ -41,8 +97,8 @@ html, body {
     right: 30%;
     padding: 10px;
     box-shadow: 0 0 10vh rgba(0,0,0,0.75);
-    background-color: blue;
-    color: white;
+    background-color: rgba(255,255,255,0.75);
+    color: #000;
     text-align: center;
 
     button {
@@ -82,10 +138,12 @@ html, body {
         }
 
         .front {
-            background-color: tomato;
+            background-color: #CCAD93;
         }
         .back {
             background-color: gray;
+            background-size: cover;
+            background-position: 50% 50%;
         }
 	}
 
