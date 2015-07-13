@@ -14,13 +14,18 @@ html, body {
 }
 
 .sets {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex: 1;
     flex: 1;
+    -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
     margin: 1vh 1vw;
 
     > div {
+        -webkit-flex: 1 1 auto;
         flex: 1 1 auto;
         max-width: 24vw;
         height: 24vw;
@@ -49,10 +54,15 @@ html, body {
 }
 
 .board {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex: 1;
     flex: 1;
+    -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
+    -webkit-align-content: stretch;
     align-content: stretch;
+    -webkit-justify-content: stretch;
     justify-content: center;
 }
 .card {
@@ -70,6 +80,7 @@ html, body {
 
 @media (orientation: portrait) {
     .card {
+        -webkit-flex: 1 1 23.5vw;
         flex: 1 1 23.5vw;
         max-width: 23.5vw;
         height: 15.5vh;
@@ -79,7 +90,9 @@ html, body {
     }
 
     .sets {
+        -webkit-flex-flow: column wrap;
         flex-flow: column wrap;
+        -webkit-align-items: center;
         align-items: center;
 
         > div {
