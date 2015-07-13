@@ -36,6 +36,7 @@ html, body {
         position: relative;
         background: linear-gradient(to bottom, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%) 50% 50% no-repeat;
         background-size: cover;
+        cursor: pointer;
 
         h2 {
             position: absolute;
@@ -65,42 +66,6 @@ html, body {
     -webkit-justify-content: stretch;
     justify-content: center;
 }
-.card {
-    color: white;
-    text-align: center;
-    flex: 1 1 15vw;
-    height: 23vh;
-    line-height: 23vh;
-    max-width: 15.5vw;
-    margin: 1.5vh 0.5vw 0 0.5vw;
-    font-size: 11.5vh;
-
-    img { max-width: 100%; max-height: 100%; }
-}
-
-@media (orientation: portrait) {
-    .card {
-        -webkit-flex: 1 1 23.5vw;
-        flex: 1 1 23.5vw;
-        max-width: 23.5vw;
-        height: 15.5vh;
-        line-height: 15.5vh;
-        font-size: 7.5vh;
-        margin-top: 1vh;
-    }
-
-    .sets {
-        -webkit-flex-flow: column wrap;
-        flex-flow: column wrap;
-        -webkit-align-items: center;
-        align-items: center;
-
-        > div {
-            flex: 1;
-            min-width: 48vw;
-        }
-    }
-}
 
 .results {
     position: absolute;
@@ -116,6 +81,7 @@ html, body {
 
     button {
         font-size: 24px;
+        cursor: pointer;
     }
 }
 
@@ -126,9 +92,18 @@ html, body {
 .perspective(@amount: 1000px) { perspective:@amount; -webkit-perspective:@amount; -moz-perspective:@amount; -ms-perspective:@amount; }
 .tile { color:white; padding:15px; box-sizing:border-box; -moz-box-sizing:border-box; }
 
-
 .card {
     .perspective;
+
+    color: white;
+    text-align: center;
+    flex: 1 1 15vw;
+    height: 23vh;
+    line-height: 23vh;
+    max-width: 15.5vw;
+    margin: 1.5vh 0.5vw 0 0.5vw;
+    font-size: 11.5vh;
+    cursor: pointer;
 
 	> div.card-inner {
         float:left;
@@ -183,4 +158,28 @@ html, body {
 		.front { .transform(rotateX(180deg)); }
 		.back { .transform(rotateX(0deg)); }
 	}
+}
+
+@media (orientation: portrait) {
+    .card {
+        -webkit-flex: 1 1 23.5vw;
+        flex: 1 1 23.5vw;
+        max-width: 23.5vw;
+        height: 15.5vh;
+        line-height: 15.5vh;
+        font-size: 7.5vh;
+        margin-top: 1vh;
+    }
+
+    .sets {
+        -webkit-flex-flow: column wrap;
+        flex-flow: column wrap;
+        -webkit-align-items: center;
+        align-items: center;
+
+        > div {
+            flex: 1;
+            min-width: 48vw;
+        }
+    }
 }
