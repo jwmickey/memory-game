@@ -178,7 +178,7 @@ class Start extends Component {
 
                         return (
                             <div key={set.name} style={styles}
-                                onTouchEnd={that.props.startHandler.bind(null, i)}
+                                onTouchStart={that.props.startHandler.bind(null, i)}
                                 onClick={that.props.startHandler.bind(null, i)} >
                                 <h2>{set.name}</h2>
                                 <p>
@@ -226,11 +226,11 @@ class Results extends Component {
                 <h1>SUCCESS!</h1>
                 <h2>Your Score: {this.calcScore()}</h2>
                 <p>
-                    <button onTouchEnd={this.props.resetHandler}
+                    <button onTouchStart={this.props.resetHandler}
                         onClick={this.props.resetHandler}>Play Again!</button>
                 </p>
                 <p>
-                    <button onTouchEnd={this.props.pickSetHandler}
+                    <button onTouchStart={this.props.pickSetHandler}
                         onClick={this.props.pickSetHandler}>Choose Another Set</button>
                 </p>
             </div>
@@ -262,7 +262,7 @@ class Card extends Component {
         }
 
         return (
-            <div className={classes} onTouchEnd={this.flip.bind(this)} onClick={this.flip.bind(this)}>
+            <div className={classes} onTouchStart={this.flip.bind(this)} onClick={this.flip.bind(this)}>
                 <div className={innerClasses}>
                     <div className="front">?</div>
                     <div className="back" style={styles}>
