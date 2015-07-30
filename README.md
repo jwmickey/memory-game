@@ -19,11 +19,6 @@ react-hot-loader and webpack!
 [PLAY!](https://jwmickey.github.com/memory-game)
 -------
 
-TODO:
------
-
-* Provide some image sets to use for cards rather than simple numbers
-
 Acknowledgements:
 -----------------
 
@@ -31,3 +26,5 @@ Thanks to Dan Abramov for the [react-hot-loader](https://github.com/gaearon/reac
 quick-start and his work on the project.
 
 Also thanks to Chris Harrington for the [CSS animation code](https://www.codementor.io/reactjs/tutorial/building-a-flipper-using-react-js-and-less-css).
+
+And finally, thanks to the North Carolina Zoo for the photos.
