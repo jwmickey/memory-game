@@ -4,8 +4,14 @@ import sets from './sets';
 
 const NUM_PAIRS = 12;
 
-function shuffle(a,b,c,d) {
-    c=a.length;while(c)b=Math.random()*c--|0,d=a[c],a[c]=a[b],a[b]=d
+function shuffle(a, b, c, d) {
+    c = a.length;
+    while (c) {
+        b = Math.random() * c-- | 0;
+        d = a[c];
+        a[c] = a[b];
+        a[b] = d;
+    }
 }
 
 export default class App extends Component {
@@ -96,7 +102,7 @@ export default class App extends Component {
         cards[index].numFlips++;
 
         if (this.state.guess >= 0) {
-            if (cards[this.state.guess].name == cards[index].name) {
+            if (cards[this.state.guess].name === cards[index].name) {
                 // found a match
                 cards[this.state.guess].matched = true;
                 cards[index].matched = true;
@@ -136,10 +142,10 @@ export default class App extends Component {
             let results = null;
             let clickHandler = function() {};
 
-            if (this.state.numPaired == NUM_PAIRS) {
+            if (this.state.numPaired === NUM_PAIRS) {
                 results = <Results cards={this.state.cards}
                     resetHandler={this.reset.bind(this)}
-                    pickSetHandler={this.pickSet.bind(this)} />
+                    pickSetHandler={this.pickSet.bind(this)} />;
             } else if (!this.state.locked) {
                 clickHandler = this.flipCard.bind(this);
             }
@@ -156,9 +162,7 @@ export default class App extends Component {
                 </div>
             );
         } else {
-            return (
-                <Start sets={sets} startHandler={this.loadSet.bind(this)} />
-            )
+            return <Start sets={sets} startHandler={this.loadSet.bind(this)} />;
         }
     }
 }
@@ -173,25 +177,23 @@ class Start extends Component {
                     {this.props.sets.map(function(set, i) {
                         let styles = {};
                         if (set.cover != null) {
-                            styles.backgroundImage = 'url('+set.cover+')';
-                        };
+                            let url = set.cover;
+                            if (set.cover.substring(0, 4) !== 'http') {
+                                url = require('../' + set.cover);
+                            }
+                            styles.backgroundImage = 'url(' + url + ')';
+                        }
 
                         return (
                             <div key={set.name} style={styles}
                                 onClick={that.props.startHandler.bind(null, i)} >
                                 <h2>{set.name}</h2>
-                                <p>
-                                    {set.description}
-                                </p>
-                                {set.credit != null ? <p>Courtesy {set.credit}</p> : null}
+                                {set.credit != null ? <p className="credit">Courtesy{' '}
+                                    <a onClick={(e) => e.preventBubble()} href={set.url}>{set.credit}</a></p> : null}
                             </div>
                         );
                     })}
                 </div>
-                <p>
-                    Images provided by the North Carolina Zoo.  You can find the originals
-                    at <a href="http://nczoo.smugmug.com" target="_blank">smugmug</a>.
-                </p>
                 <p>
                     View project on <a href="https://github.com/jwmickey/memory-game">GitHub</a>.
                 </p>
@@ -205,11 +207,11 @@ class Results extends Component {
         let score = 0;
 
         this.props.cards.forEach(function(card) {
-            if (card.numFlips == 1) {
+            if (card.numFlips === 1) {
                 score += 10;
-            } else if (card.numFlips == 2) {
+            } else if (card.numFlips === 2) {
                 score += 5;
-            } else if (card.numFlips == 3) {
+            } else if (card.numFlips === 3) {
                 score += 3;
             } else {
                 score -= 5;
@@ -231,7 +233,7 @@ class Results extends Component {
                     <button onClick={this.props.pickSetHandler}>Choose Another Set</button>
                 </p>
             </div>
-        )
+        );
     }
 }
 
@@ -253,9 +255,16 @@ class Card extends Component {
             flipped: this.props.flipped
         });
 
-        let styles = {};
+        let styles = {
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat'
+        };
         if (this.props.image != null) {
-            styles.backgroundImage = 'url('+this.props.image+')';
+            let url = this.props.image;
+            if (url.substring(0, 4) !== 'http') {
+                url = require('../' + url);
+            }
+            styles.backgroundImage = 'url(' + url + ')';
         }
 
         return (
@@ -277,4 +286,4 @@ Card.defaultProps = {
     name: '???',
     flipped: false,
     matched: false
-}
+};

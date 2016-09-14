@@ -34,6 +34,9 @@ module.exports = {
       test: /\.less$/,
       loader: 'style!css!less'
     },{
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=8192'
+    },{
       test: /\.html?$/,
       loaders: ['file?name=[name].[ext]'],
       include: __dirname
