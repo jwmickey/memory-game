@@ -6,8 +6,7 @@ module.exports = {
   entry: './src/index',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/dist/'
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: [ '', '.js' ]
@@ -35,7 +34,7 @@ module.exports = {
       loader: 'style!css!less'
     },{
       test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=8192'
+      loader: 'url-loader?name=img/[name].[ext]&limit=8192'
     },{
       test: /\.html?$/,
       loaders: ['file?name=[name].[ext]'],

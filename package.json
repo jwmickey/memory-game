@@ -1,6 +1,6 @@
 {
   "name": "Memory_Game",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Classic card flip memory game",
   "scripts": {
     "start": "node server.js",
