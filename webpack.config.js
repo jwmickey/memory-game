@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
@@ -21,25 +22,46 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        use: [
+          { 
+            loader: 'react-hot-loader/webpack'
+          }, 
+          {
+            loader: 'babel-loader'
+          }
+        ],
         include: path.join(__dirname, 'src')
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'less-loader',
+            options: {
+                javascriptEnabled: true
+            }
+          }
+        ],
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=8192'
+        use: {
+          loader: 'url-loader?limit=8192'
+        }
       }
     ]
   }
