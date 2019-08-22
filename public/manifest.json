@@ -1,0 +1,32 @@
+{
+  "name": "Memory Game",
+  "short_name": "Memory",
+  "description": "Classic card-flip memory game",
+  "icons": [
+    {
+      "src": "/brain_72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/brain_120.png",
+      "type": "image/png",
+      "sizes": "120x120"
+    },
+    {
+      "src": "/brain_152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/brain_200.png",
+      "type": "image/png",
+      "sizes": "200x200"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#CCAD93",
+  "theme_color": "#CCAD93"
+}

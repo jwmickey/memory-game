@@ -12,15 +12,15 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/dist/'
   },
   devServer: {
     stats: "errors-only",
     overlay: true,
-    host: "0.0.0.0",
+    host: "localhost",
     port: 3000,
     hot: true,
     compress: true,
+    contentBase: path.resolve('public'),
   },
   plugins: [
     new CleanWebpackPlugin(),
