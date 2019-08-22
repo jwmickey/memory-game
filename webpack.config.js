@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -21,6 +22,7 @@ module.exports = {
     hot: true,
     compress: true,
     contentBase: path.resolve('public'),
+    writeToDisk: true,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -36,6 +38,10 @@ module.exports = {
         force: true,
       },
     ]),
+    new WorkboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true
+    }),
   ],
   resolve: {
     extensions: ['.js', '.jsx']

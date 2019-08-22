@@ -22,6 +22,11 @@
       "src": "/brain_200.png",
       "type": "image/png",
       "sizes": "200x200"
+    },
+    {
+      "src": "/brain_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": "/",
