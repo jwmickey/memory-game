@@ -21,6 +21,7 @@ export default function Start({ sets, onChooseSet }) {
                 <p className="credit">
                   Courtesy{' '}
                   <a onClick={e => e.stopPropagation()}
+                     rel="noopener"
                      target="_blank" href={set.url}>{set.credit}</a></p>
               )}
             </div>
