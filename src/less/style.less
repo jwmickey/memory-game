@@ -14,27 +14,23 @@ html, body {
 }
 
 .sets {
-    display: -webkit-flex;
     display: flex;
-    -webkit-flex: 1;
     flex: 1;
-    -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
-    -webkit-justify-content: space-between;
     justify-content: space-between;
-    margin: 1vh 1vw;
+    margin: 5vh auto;
+    max-width: 600px;
 
     > div {
-        -webkit-flex: 1 1 auto;
-        flex: 1 1 auto;
-        max-width: 24vw;
-        height: 24vw;
-        margin: 0.5vh 0.5vw;
+        flex: 0 0 auto;
+        width: 14vw;
+        height: 10vw;
+        margin: 0.5vh 0.5vw 5vh 0.5vw;
         border-radius: 2vh;
         box-shadow: 0 0 1vw rgba(0,0,0,0.25);
         color: #000;
         position: relative;
-        background: linear-gradient(to bottom, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%) 50% 50% no-repeat;
+        background: linear-gradient(to bottom, #f2f5f6 0%, #e3eaed 37%, #c8d7dc 100%) 50% 50% no-repeat;
         background-size: cover;
         cursor: pointer;
 
@@ -61,14 +57,23 @@ html, body {
 .board {
     display: -webkit-flex;
     display: flex;
-    -webkit-flex: 1;
     flex: 1;
-    -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
-    -webkit-align-content: stretch;
     align-content: stretch;
-    -webkit-justify-content: center;
     justify-content: center;
+    padding-left: 1.5vmin;
+
+    > div {
+        flex: 1 1 15vw;
+    }
+
+    &.Emoji {
+        .card {
+            font-family: "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", "Lucida Sans Unicode", sans-serif;
+            font-size: 16vh;
+            overflow: hidden;
+        }
+    }
 }
 
 .results {
@@ -89,34 +94,32 @@ html, body {
     }
 }
 
-.transition (@value1,@value2:X,...) { @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`; -webkit-transition: @value; -moz-transition: @value; -ms-transition: @value; -o-transition: @value; transition: @value; }
-.transform (@value1,@value2:X,...) { @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`; transform:@value; -ms-transform:@value; -webkit-transform:@value; -o-transform:@value; -moz-transform:@value; }
-.transform-style(@style:preserve-3d) { transform-style:@style; -webkit-transform-style:@style; -moz-transform-style:@style; -ms-transform-style:@style; }
-.backface-visibility-hidden { backface-visibility:hidden; -webkit-backface-visibility:hidden; }
-.perspective(@amount: 1000px) { perspective:@amount; -webkit-perspective:@amount; -moz-perspective:@amount; -ms-perspective:@amount; }
-.tile { color:white; padding:15px; box-sizing:border-box; -moz-box-sizing:border-box; }
+.transition (@value1,@value2:X,...) { @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`; transition: @value; }
+.transform (@value1,@value2:X,...) { @value: ~`"@{arguments}".replace(/[\[\]]|\,\sX/g, '')`; transform:@value; }
+.transform-style(@style:preserve-3d) { transform-style:@style; }
+.backface-visibility-hidden { backface-visibility:hidden;  }
+.perspective(@amount: 1000px) { perspective:@amount; }
 
 .card {
     .perspective;
 
     color: white;
     text-align: center;
-    flex: 1 1 15vw;
-    height: 23vh;
-    line-height: 23vh;
-    max-width: 15.5vw;
-    margin: 1.5vh 0.5vw 0 0.5vw;
-    font-size: 11.5vh;
+    height: 23.25vh;
+    line-height: 23.25vh;
+    max-width: 18vw;
+    margin: 1.5vmin 1.5vmin 0 0;
+    font-size: 12vh;
     cursor: pointer;
 
-	> div.card-inner {
+    > div.card-inner {
         float:left;
         width:100%;
         height:100%;
         position:relative;
         .transform-style(preserve-3d);
 
-		.front, .back {
+        .front, .back {
             float:left;
             display:block;
             width:100%;
@@ -141,39 +144,41 @@ html, body {
             height: 99%;
             color: black;
         }
-	}
+    }
 
     &.matched .back {
         border-color: green !important;
         background-color: green !important;
         color: white !important;
     }
-}
 
-.card.horizontal {
-	.front { .transform(rotateY(0deg)); }
-	.back { .transform(rotateY(-180deg)); }
+    &.horizontal {
+        .front { .transform(rotateY(0deg)); }
+        .back { .transform(rotateY(-180deg)); }
 
-	div.card-inner.flipped {
-		.front { .transform(rotateY(180deg)); }
-		.back { .transform(rotateY(0deg)); }
-	}
-}
+        .card-inner.flipped {
+            .front { .transform(rotateY(180deg)); }
+            .back { .transform(rotateY(0deg)); }
+        }
+    }
 
-.card.vertical {
-	.front { .transform(rotateX(0deg)); }
-	.back { .transform(rotateX(-180deg)); }
+    &.vertical {
+        .front { .transform(rotateX(0deg)); }
+        .back { .transform(rotateX(-180deg)); }
 
-	div.card-inner.flipped {
-		.front { .transform(rotateX(180deg)); }
-		.back { .transform(rotateX(0deg)); }
-	}
+        .card-inner.flipped {
+            .front { .transform(rotateX(180deg)); }
+            .back { .transform(rotateX(0deg)); }
+        }
+    }
 }
 
 @media (orientation: portrait) {
-    .card {
-        -webkit-flex: 1 1 23.5vw;
+    .board > div {
         flex: 1 1 23.5vw;
+    }
+
+    .board .card {
         max-width: 23.5vw;
         height: 15.5vh;
         line-height: 15.5vh;
@@ -182,13 +187,20 @@ html, body {
     }
 
     .sets {
-        -webkit-align-items: center;
         align-items: center;
 
         > div {
-            flex: 1 0 48vw;
-            max-width: 48vw;
-            max-height: 48vw;
+            flex: 1 0 45vw;
+            max-width: 45vw;
+            height: 20vh;
+            margin: 0 2.5vw 5vh 2.5vw;
+
+            p.credit {
+                position: absolute;
+                bottom: -3em;
+                left: 0;
+                right: 0;
+            }
         }
     }
 }

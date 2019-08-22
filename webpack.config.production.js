@@ -1,5 +1,7 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: 'production',
@@ -7,7 +9,8 @@ module.exports = {
   entry: './src/index',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    chunkFilename: '[name].bundle.js',
   },
   optimization: {
     minimize: true
@@ -16,12 +19,19 @@ module.exports = {
     extensions: [ '.js' ]
   },
   plugins: [
-//    new webpack.optimize.OccurenceOrderPlugin(),
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
+    new CopyWebpackPlugin([
+      {
+        from: "public",
+        to: "",
+        force: true,
+      },
+    ]),
   ],
 
   module: {
@@ -58,7 +68,7 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         use: {
-          loader: 'url-loader?name=img/[name].[ext]&limit=8192'
+          loader: 'url-loader?name=img/[hash].[ext]&limit=4096'
         }
       },
       {

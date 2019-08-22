@@ -1,12 +1,12 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   mode: 'development',
   devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     './src/index'
   ],
   output: {
@@ -15,13 +15,27 @@ module.exports = {
     publicPath: '/dist/'
   },
   devServer: {
-    contentBase: "./dist",
-    noInfo: true, //  --no-info option
+    stats: "errors-only",
+    overlay: true,
+    host: "0.0.0.0",
+    port: 3000,
     hot: true,
-    inline: true
+    compress: true,
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: "public",
+        to: "",
+        force: true,
+      },
+    ]),
   ],
   resolve: {
     extensions: ['.js', '.jsx']
