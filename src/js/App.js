@@ -16,6 +16,8 @@ function shuffle(a, b, c, d) {
     }
 }
 
+const cardTimeout = parseInt(window.localStorage.getItem('cardflip_timeout')) || 1000;
+
 export default function App()  {
     const [cards, setCards] = useState([]);
     const [guess, setGuess] = useState(-1);
@@ -117,7 +119,7 @@ export default function App()  {
                     setCards(cards);
                     setGuess(-1);
                     setIsLocked(false);
-                }, 1000);
+                }, cardTimeout);
             }
         } else {
             setCards(cards);
