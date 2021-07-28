@@ -3,6 +3,7 @@ npm-debug.log
 .DS_Store
 !/dist/.gitkeep
 /dist
+.env
 .env.local
 cypress/videos/
 cypress/screenshots/
