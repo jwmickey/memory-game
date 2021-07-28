@@ -1,4 +1,5 @@
 {
   "baseUrl": "https://card-flip.netlify.app",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "projectId": "qry5zy"
 }
