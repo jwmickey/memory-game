@@ -15,14 +15,20 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    stats: "errors-only",
-    overlay: true,
+    client: {
+      overlay: true,
+      logging: 'error',
+    },
     host: "localhost",
     port: 3000,
     hot: true,
     compress: true,
-    contentBase: path.resolve('public'),
-    writeToDisk: true,
+    static: {
+      directory: path.resolve('public'),
+    },
+    devMiddleware: {
+      writeToDisk: true,
+    },
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -31,13 +37,14 @@ module.exports = {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
-    new CopyWebpackPlugin([
-      {
-        from: "public",
-        to: "",
-        force: true,
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public",
+          to: "",
+        },
+      ],
+    }),
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true
@@ -51,9 +58,6 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: [
-          { 
-            loader: 'react-hot-loader/webpack'
-          }, 
           {
             loader: 'babel-loader'
           }
