@@ -1,16 +1,5 @@
 const { test, expect } = require('@playwright/test');
-
-const setNames = [
-    'Numbers',
-    'Emoji',
-    'Super Smash Bros.',
-    'Pokemon',
-    'Mammals',
-    'Birds',
-    'Reptiles',
-    'Flags of the World',
-    'US State Flags',
-];
+const { setNames } = require('./fixtures');
 
 test.describe('Main Menu', () => {
     test.beforeEach(async ({ page }) => {
@@ -24,7 +13,7 @@ test.describe('Main Menu', () => {
     });
 
     test('Loads a set', async ({ page }) => {
-        await page.locator('div.sets > div > h2', { hasText: setNames[0] }).click();
+        await page.locator('div.sets > div > h2', { hasText: 'Numbers' }).click();
         await expect(page.locator('.board')).toBeVisible();
         const cards = page.locator('.board > div');
         await expect(cards).toHaveCount(24);

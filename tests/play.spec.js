@@ -1,17 +1,5 @@
 const { test, expect } = require('@playwright/test');
 
-const setNames = [
-    'Numbers',
-    'Emoji',
-    'Super Smash Bros.',
-    'Pokemon',
-    'Mammals',
-    'Birds',
-    'Reptiles',
-    'Flags of the World',
-    'US State Flags',
-];
-
 test.describe('Play Game', () => {
     test.beforeEach(async ({ page }) => {
         await page.addInitScript(() => {
@@ -21,7 +9,7 @@ test.describe('Play Game', () => {
     });
 
     test('Wins impressively', async ({ page }) => {
-        await page.locator('div.sets > div > h2', { hasText: setNames[0] }).click();
+        await page.locator('div.sets > div > h2', { hasText: 'Numbers' }).click();
         await expect(page.locator('.board')).toBeVisible();
 
         // cheat!
