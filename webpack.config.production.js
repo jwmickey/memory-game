@@ -26,13 +26,14 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new CopyWebpackPlugin([
-      {
-        from: "public",
-        to: "",
-        force: true,
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public",
+          to: "",
+        },
+      ],
+    }),
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true
@@ -44,9 +45,6 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: [
-          { 
-            loader: 'react-hot-loader/webpack'
-          }, 
           {
             loader: 'babel-loader'
           }
