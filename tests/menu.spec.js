@@ -21,4 +21,10 @@ test.describe('Main Menu', () => {
             await expect(card.locator('.front')).toContainText('?');
         }
     });
+
+    test('Loads the Dogs set', async ({ page }) => {
+        await page.locator('div.sets > div > h2', { hasText: 'Dogs' }).click();
+        await expect(page.locator('.board')).toBeVisible();
+        await expect(page.locator('.board > div')).toHaveCount(24);
+    });
 });
