@@ -3,6 +3,7 @@ const setNames = [
     'Emoji',
     'Super Smash Bros.',
     'Pokemon',
+    'Dogs',
     'Mammals',
     'Birds',
     'Reptiles',
